@@ -1,14 +1,18 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Button, Card, CardSection, Header, NumberInput } from './src/components/common';
+import { Button, Card, CardSection, Header, NumberInput } from './components/common';
 
-export default class App extends React.Component {
+class NewGameActivity extends React.Component {
+  static navigationOptions = {
+    title: 'New Game',
+  };
+
   state = { playerCount: '' };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.activityStyle}>
-        <Header headerText={'Number of Players'}/>
         <View style={styles.activityContentStyle}>
           <Text style={styles.textStyle}>
             Type in the number of players that will be playing the game.
@@ -21,7 +25,12 @@ export default class App extends React.Component {
             />
           </View>
           <View style={styles.buttonViewStyle}>
-            <Button style={styles.buttonStyle}>
+            <Button 
+            style={styles.buttonStyle}
+            title="Char Selection"
+            onPress={() =>
+            navigate('CharacterSelection')
+            }>
               Continue to Character Selection
             </Button>
           </View>
@@ -55,4 +64,4 @@ const styles = {
   }
 }
 
-export default NewGameActivity
+export default NewGameActivity;

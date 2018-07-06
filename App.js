@@ -1,82 +1,25 @@
-import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import ItemCard from './src/components/ItemCard';
-import { Button, Card, CardSection, Header, NumberInput } from './src/components/common';
+import { createStackNavigator } from 'react-navigation';
+import MainActivity from './src/MainActivity';
+import NewGameActivity from './src/NewGameActivity';
+import CharacterSelectionActivity from './src/CharacterSelectionActivity';
+import RulesActivity from './src/RulesActivity';
+import AboutActivity from './src/AboutActivity';
+import SettingsActivity from './src/SettingsActivity';
+import ActionActivity from './src/ActionActivity';
+import LobbyActivity from './src/LobbyActivity';
+import GameActivity from './src/GameActivity';
 
-export default class App extends React.Component {
-  state = { playerCount: '' };
 
-  render() {
-    return (
-      <View style={styles.activityViewStyle}>
-        <Header headerText={'Character Selection'}/>
-        <ScrollView style={styles.scrollViewStyle}>
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
+const App = createStackNavigator({
+  Home: { screen: MainActivity },
+  NewGame: { screen: NewGameActivity },
+  CharacterSelection: { screen: CharacterSelectionActivity },
+  Rules: { screen: RulesActivity },
+  About: { screen: AboutActivity },
+  Settings: { screen: SettingsActivity },
+  Action: { screen: ActionActivity },
+  Lobby: { screen: LobbyActivity },
+  Game: { screen: GameActivity }
+});
 
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-          <ItemCard>
-            <Text>
-              ItemCard
-            </Text>
-          </ItemCard>
-
-        </ScrollView>
-      </View>
-    );
-  }
-}
-
-const styles = {
-  activityViewStyle: {
-    flex: 1,
-  },
-  scrollViewStyle: {
-    borderWidth: 1,
-    paddingBottom: 20
-  },
-}
+export default App;

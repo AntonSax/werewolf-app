@@ -3,11 +3,20 @@ import { Text, View } from 'react-native';
 import { Button, Card, CardSection } from './components/common';
 
 class MainActivity extends React.Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
+
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <Card>
         <CardSection>
-          <Button>
+          <Button
+            title="Play a New Game"
+            onPress={() =>
+            navigate('NewGame')
+            }>
             New Game
           </Button>
         </CardSection>
@@ -17,17 +26,29 @@ class MainActivity extends React.Component {
           </Button>
         </CardSection>
         <CardSection>
-          <Button>
+          <Button
+            title="Open Rules"
+            onPress={() =>
+            navigate('Rules')
+            }>
             Rules
           </Button>
         </CardSection>
         <CardSection>
-          <Button>
+          <Button
+            title="Settings"
+            onPress={() =>
+            navigate('Settings')
+            }>
             Settings
           </Button>
         </CardSection>
         <CardSection>
-          <Button>
+          <Button
+            title="Open About Page"
+            onPress={() =>
+            navigate('About')
+            }>
             About
           </Button>
         </CardSection>
