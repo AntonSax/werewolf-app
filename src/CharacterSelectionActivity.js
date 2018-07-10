@@ -1,12 +1,15 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Button, Card, CardSection, Header, NumberInput } from './components/common';
 import Item from './components/Item';
+import ItemData from './components/ItemData';
 import ItemCard from './components/ItemCard';
 import ItemContainer from './components/ItemContainer';
-import emails from './react-native-search-filter/mails';
-const KEYS_TO_FILTERS = ['user.name', 'subject', 'name'];
+const KEYS_TO_FILTERS_NEW = ['name'];
+
+const data = ItemData
 
 {/* https://www.npmjs.com/package/react-native-search-filter */}
 
@@ -29,8 +32,7 @@ export default class CharacterSelectionActivity extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const filteredEmails = emails.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-    const filteredRoles = Item.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+    const filteredRoles = ItemData.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS_NEW))
     return (
       <View style={styles.container}>
         <View style={styles.container}>
@@ -40,14 +42,43 @@ export default class CharacterSelectionActivity extends React.Component {
             placeholder="Type a message to search"
             />
           <ScrollView>
-            {filteredEmails.map(email => {
+            {filteredRoles.map(ItemData => {
               return (
-                <TouchableOpacity onPress={() => alert(email.user.name)} key={email.id} style={styles.emailItem}>
-                  <View>
-                    <Text>{email.user.name}</Text>
-                    <Text style={styles.emailSubject}>{email.subject}</Text>
+                <View key={ItemData.id} style={(ItemData.index + 1 === data.length) ? styles.lastItemStyle : styles.containerStyle}>
+
+                  <Image source={ItemData.image} style={styles.imageStyle} />
+                  <View style={styles.textStyle}>
+                    <Text style={{ color: '#2e2f30' }}>{ItemData.name}</Text>
+                    {/*
+                    <View style={priceStyle}>
+                      <Text style={{ color: '#2e2f30', fontSize: 12 }}>${ItemData.price}</Text>
+                    </View>
+                    */}
                   </View>
-                </TouchableOpacity>
+
+                  <View style={styles.counterStyle}>
+                    <Icon.Button 
+                      name="md-remove" 
+                      size={25} 
+                      color='#fff' 
+                      backgroundColor='#fff' 
+                      style={{ borderRadius: 15, backgroundColor: '#bbb', height: 30, width: 30 }} 
+                      iconStyle={{ marginRight: 0 }}
+                      onPress={() => console.log('hello')}
+                    />
+                    <Text>{ItemData.amountTaken}</Text>
+                    <Icon.Button 
+                      name="md-add" 
+                      size={25} 
+                      color='#fff' 
+                      backgroundColor='#fff' 
+                      style={{ borderRadius: 15, backgroundColor: '#bbb', height: 30, width: 30 }} 
+                      iconStyle={{ marginRight: 0 }}
+                      onPress={() => console.log('hello')}
+                    />
+                  </View>
+
+                </View>
               )
             })}
           </ScrollView>
@@ -67,6 +98,7 @@ export default class CharacterSelectionActivity extends React.Component {
             </Button>
           </View>
         </View>
+
       </View>
     );
   }
@@ -86,13 +118,38 @@ const styles = {
     backgroundColor: '#fff',
     justifyContent: 'flex-start'
   },
-  emailItem:{
-    borderBottomWidth: 0.5,
-    borderColor: 'rgba(0,0,0,0.3)',
-    padding: 10
+  containerStyle: {
+    flexDirection: 'row',
+    flex: 1,
+    borderBottomWidth: 1,
+    borderColor: '#e2e2e2',
+    padding: 10,
+    paddingLeft: 15,
+    backgroundColor: '#fff'
   },
-  emailSubject: {
+  counterStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  imageStyle: {
+    width: 50, 
+    height: 50, 
+    marginRight: 20
+  },
+  itemData:{
+    padding: 0
+  },
+  itemSubject: {
     color: 'rgba(0,0,0,0.5)'
+  },
+  lastItemStyle: {
+    flexDirection: 'row',
+    flex: 1,
+    padding: 10,
+    paddingLeft: 15,
+    backgroundColor: '#fff'
   },
   scrollViewStyle: {
     borderWidth: 1,
@@ -102,5 +159,9 @@ const styles = {
     padding: 10,
     borderColor: '#CCC',
     borderWidth: 1
-  }
+  },
+  textStyle: {
+    flex: 2,
+    justifyContent: 'center'
+  },
 }

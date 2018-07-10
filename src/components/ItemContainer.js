@@ -5,7 +5,7 @@ import Item from './Item';
 class ItemsContainer extends Component {
   render() {
     return (
-      <View style={styles.containterStyle}>
+      <View style={styles.containerStyle}>
         <Item />
       </View>
     );
@@ -13,7 +13,7 @@ class ItemsContainer extends Component {
 }
 
 const styles = {
-  containterStyle: {
+  containerStyle: {
     flex: 4,
     backgroundColor: '#DCDCDC'
   }
