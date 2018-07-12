@@ -1,12 +1,16 @@
 import React from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Button, Card, CardSection, Header, NumberInput } from './components/common';
 import Item from './components/Item';
 import ItemData from './components/ItemData';
 import ItemCard from './components/ItemCard';
 import ItemContainer from './components/ItemContainer';
+import LibraryList from './components/LibraryList';
+import reducers from './reducers';
 const KEYS_TO_FILTERS_NEW = ['name'];
 
 const data = ItemData
@@ -58,13 +62,25 @@ export default class CharacterSelectionActivity extends React.Component {
 
                   <View style={styles.counterStyle}>
                     <Icon.Button 
+                      name="md-help" 
+                      size={25} 
+                      color='#fff' 
+                      backgroundColor='#fff' 
+                      style={{ borderRadius: 15, backgroundColor: '#bbb', height: 30, width: 30 }} 
+                      iconStyle={{ marginRight: 0 }}
+                      onPress={() => alert(ItemData.description)}
+                    />
+                  </View>
+
+                  <View style={styles.counterStyle}>
+                    <Icon.Button 
                       name="md-remove" 
                       size={25} 
                       color='#fff' 
                       backgroundColor='#fff' 
                       style={{ borderRadius: 15, backgroundColor: '#bbb', height: 30, width: 30 }} 
                       iconStyle={{ marginRight: 0 }}
-                      onPress={() => console.log('hello')}
+                      onPress={() => console.log('subtract')}
                     />
                     <Text>{ItemData.amountTaken}</Text>
                     <Icon.Button 
@@ -74,7 +90,7 @@ export default class CharacterSelectionActivity extends React.Component {
                       backgroundColor='#fff' 
                       style={{ borderRadius: 15, backgroundColor: '#bbb', height: 30, width: 30 }} 
                       iconStyle={{ marginRight: 0 }}
-                      onPress={() => console.log('hello')}
+                      onPress={() => console.log('add')}
                     />
                   </View>
 
@@ -84,9 +100,18 @@ export default class CharacterSelectionActivity extends React.Component {
           </ScrollView>
         </View>
 
-        <View style={{ flex: 1 }}>
-          <ItemContainer/>
+        {/*
+        <View style={styles.basketContainerStyle}>
+        </View>
+        */}
 
+        <Provider store={createStore(reducers)}>
+          <View style={{ flex: 1 }}>
+            <LibraryList/>
+          </View>
+        </Provider>
+
+        <View style={styles.buttonViewContainerStyle}>
           <View style={styles.buttonViewStyle}>
             <Button 
             style={styles.buttonStyle}
@@ -110,11 +135,28 @@ const styles = {
     marginRight: 40,
     flex: 1
   },
+  basketContainerStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: '#e2e2e2',
+    backgroundColor: '#DCDCDC'
+  },
   buttonViewStyle: {
     height: 50,
   },
+  buttonViewContainerStyle: {
+    padding: 10,
+    borderTopWidth: 1,
+    borderColor: '#e2e2e2'
+  },
   container: {
-    flex: 1,
+    flex: 7,
     backgroundColor: '#fff',
     justifyContent: 'flex-start'
   },
